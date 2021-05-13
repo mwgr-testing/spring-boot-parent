@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- <parent>...</parent> -->
+
+	<groupId>%%PROJECT_GROUP_ID%%</groupId>
+	<artifactId>%%PROJECT_ARTIFACT_ID%%</artifactId>
+	<version>%%PROJECT_VERSION%%</version>
+	<!-- <packaging>...</packaging> -->
+
+	<name>%%PROJECT_NAME%%</name>
+	<description>%%PROJECT_DESCRIPTION%%</description>
+	<inceptionYear>%%YEAR%%</inceptionYear>
+	<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<!-- <organization>...</organization> -->
+	<!-- <developers>...</developers> -->
+	<!-- <contributors>...</contributors> -->
+	<!-- <mailingLists>...</mailingLists> -->
+
+	<scm>
+		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%</url>
+		<connection>scm:git:https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%.git</connection>
+		<developerConnection>scm:git:https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>GitHub Actions</system>
+		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%/actions</url>
+	</ciManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>maven-distribution</id>
+			<url>${env.MAVEN_DISTRIBUTION_SNAPSHOTS_URL}</url>
+		</snapshotRepository>
+		<repository>
+			<id>maven-distribution</id>
+			<url>${env.MAVEN_DISTRIBUTION_RELEASES_URL}</url>
+		</repository>
+		<!-- <site>...</site> -->
+	</distributionManagement>
+
+	<!-- <repositories>...</repositories> -->
+	<!-- <pluginRepositories>...</pluginRepositories> -->
+
+	<!-- <modules>...</modules> -->
+
+	<!-- <dependencyManagement>...</dependencyManagement> -->
+	<!-- <dependencies>...</dependencies> -->
+
+	<!-- <build> -->
+	<!-- <pluginManagement>...</pluginManagement> -->
+	<!-- <plugins>...</plugins> -->
+	<!-- </build> -->
+
+	<!-- <reporting>...</reporting> -->
+
+	<!-- <profiles>...</profiles> -->
+
+</project>

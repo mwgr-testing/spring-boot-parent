@@ -1,0 +1,45 @@
+name: Prepare release
+on: workflow_dispatch
+env:
+   GITHUB_TOKEN: ${{github.token}}
+   GH_WORKFLOW_TOKEN: ${{secrets.GH_WORKFLOW_TOKEN}}
+   MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+   MAVEN_DEFAULT_ARGS: --batch-mode --update-snapshots
+   GIT_USER_NAME: GitHub Actions (${{github.actor}})
+   GIT_USER_EMAIL: ${{github.actor}}.actions@users.noreply.github.com
+jobs:
+   create-release-branch:
+      if: github.ref == 'refs/heads/develop'
+      runs-on: ubuntu-latest
+      steps:
+      -  uses: actions/checkout@v2
+      -  uses: actions/setup-java@v1
+         with:
+            java-version: 11
+      -  uses: actions/cache@v2
+         with:
+            path: ~/.m2/repository
+            key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
+      -  run: .github/workflows/scripts/configure-git-user.sh
+      -  run: .github/workflows/scripts/create-release-branch.sh
+         env:
+            RELEASE_BRANCH_NAME: release/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}
+   increment-development-version:
+      if: github.ref == 'refs/heads/develop'
+      runs-on: ubuntu-latest
+      steps:
+      -  uses: actions/checkout@v2
+         with:
+            token: ${{env.GH_WORKFLOW_TOKEN}}
+      -  uses: actions/setup-java@v1
+         with:
+            java-version: 11
+      -  uses: actions/cache@v2
+         with:
+            path: ~/.m2/repository
+            key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
+      -  run: .github/workflows/scripts/configure-git-user.sh
+      -  run: .github/workflows/scripts/set-new-project-version.sh
+         env:
+            NEW_PROJECT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}-SNAPSHOT
+            GIT_COMMIT_MESSAGE: Starting next development iteration.

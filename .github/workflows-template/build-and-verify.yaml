@@ -1,0 +1,28 @@
+name: Build and verify
+on:
+   push:
+      branches-ignore:
+      - develop
+      - release/**
+   workflow_dispatch: null
+env:
+   GITHUB_TOKEN: ${{github.token}}
+   GH_WORKFLOW_TOKEN: ${{secrets.GH_WORKFLOW_TOKEN}}
+   MAVEN_OPTS: -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+   MAVEN_DEFAULT_ARGS: --batch-mode --update-snapshots
+jobs:
+   build-and-verify-maven-package:
+      if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, 'skip ci')
+      runs-on: ubuntu-latest
+      steps:
+      -  uses: actions/checkout@v2
+      -  uses: actions/setup-java@v1
+         with:
+            java-version: 11
+      -  uses: actions/cache@v2
+         with:
+            path: ~/.m2/repository
+            key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
+      -  run: .github/workflows/scripts/build-and-verify-maven-package.sh
+         env:
+            MAVEN_ADDITIONAL_ARGS: -Dbuilding
