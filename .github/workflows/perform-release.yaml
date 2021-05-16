@@ -39,9 +39,9 @@ jobs:
       -  run: .github/workflows/scripts/configure-git-user.sh
       -  run: .github/workflows/scripts/perform-maven-release.sh
          env:
-            MAVEN_ADDITIONAL_ARGS: -Dreleasing
+            MAVEN_ADDITIONAL_ARGS: -Dbuilding -Dreleasing
             TAG_NAME_FORMAT: '@{project.version}'
-            NEXT_DEVELOPMENT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT
+            NEXT_DEVELOPMENT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-STOP-SNAPSHOT
             SCM_COMMENT_PREFIX: '[skip ci] '
             OVERRIDE_MAVEN_DISTRIBUTION_TYPE: ${{github.event.inputs.overrideMavenDistributionType}}
             MAVEN_DISTRIBUTION_TYPE: ${{secrets.MAVEN_DISTRIBUTION_TYPE}}

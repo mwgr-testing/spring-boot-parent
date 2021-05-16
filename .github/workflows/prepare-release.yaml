@@ -23,7 +23,7 @@ jobs:
       -  run: .github/workflows/scripts/configure-git-user.sh
       -  run: .github/workflows/scripts/create-release-branch.sh
          env:
-            RELEASE_BRANCH_NAME: release/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}
+            RELEASE_BRANCH_NAME: release/${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
    increment-development-version:
       if: github.ref == 'refs/heads/develop'
       runs-on: ubuntu-latest
@@ -41,5 +41,5 @@ jobs:
       -  run: .github/workflows/scripts/configure-git-user.sh
       -  run: .github/workflows/scripts/set-new-project-version.sh
          env:
-            NEW_PROJECT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}-SNAPSHOT
+            NEW_PROJECT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.${parsedVersion.incrementalVersion}-SETME-SNAPSHOT
             GIT_COMMIT_MESSAGE: Starting next development iteration.

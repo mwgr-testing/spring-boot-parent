@@ -4,21 +4,30 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- <parent>...</parent> -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+	</parent>
 
-	<groupId>%%PROJECT_GROUP_ID%%</groupId>
-	<artifactId>%%PROJECT_ARTIFACT_ID%%</artifactId>
-	<version>%%PROJECT_VERSION%%</version>
-	<!-- <packaging>...</packaging> -->
+	<groupId>net.mwgr.testing.github.parent</groupId>
+	<artifactId>spring-boot-parent</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-	<name>%%PROJECT_NAME%%</name>
-	<description>%%PROJECT_DESCRIPTION%%</description>
-	<inceptionYear>%%YEAR%%</inceptionYear>
-	<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%</url>
+	<name>MWGR Testing (GitHub) - Spring Boot Parent</name>
+	<description>A parent POM for all my Spring Boot projects in the testing area. It extends the spring-boot-starter-parent and mainly provides plugin management and some useful profiles.</description>
+	<inceptionYear>2021</inceptionYear>
+	<url>https://github.com/mwgr-testing/spring-boot-parent</url>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>11</java.version>
+
+		<maven-scm-plugin.version>1.11.2</maven-scm-plugin.version>
+		<maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+
+		<buildnumber-maven-plugin.version>1.4</buildnumber-maven-plugin.version>
+		<site-maven-plugin.version>0.12</site-maven-plugin.version>
 	</properties>
 
 	<licenses>
@@ -28,24 +37,27 @@
 		</license>
 	</licenses>
 
-	<!-- <organization>...</organization> -->
-	<!-- <developers>...</developers> -->
-	<!-- <contributors>...</contributors> -->
-	<!-- <mailingLists>...</mailingLists> -->
+	<developers>
+		<developer>
+			<id>MWGR</id>
+			<name>Mirko Wagner</name>
+			<email>seelenvirtuose@gmail.com</email>
+		</developer>
+	</developers>
 
 	<scm>
-		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%</url>
-		<connection>scm:git:https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%.git</connection>
-		<developerConnection>scm:git:https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%.git</developerConnection>
+		<url>https://github.com/mwgr-testing/spring-boot-parent</url>
+		<connection>scm:git:https://github.com/mwgr-testing/spring-boot-parent.git</connection>
+		<developerConnection>scm:git:https://github.com/mwgr-testing/spring-boot-parent.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%/issues</url>
+		<url>https://github.com/mwgr-testing/spring-boot-parent/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/%%GITHUB_REPO_OWNER%%/%%GITHUB_REPO_NAME%%/actions</url>
+		<url>https://github.com/mwgr-testing/spring-boot-parent/actions</url>
 	</ciManagement>
 	<distributionManagement>
 		<snapshotRepository>
@@ -56,24 +68,290 @@
 			<id>maven-distribution</id>
 			<url>${env.MAVEN_DISTRIBUTION_RELEASES_URL}</url>
 		</repository>
-		<!-- <site>...</site> -->
 	</distributionManagement>
 
-	<!-- <repositories>...</repositories> -->
-	<!-- <pluginRepositories>...</pluginRepositories> -->
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build-info</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+					<configuration>
+						<offline>true</offline>
+					</configuration>
+				</plugin>
 
-	<!-- <modules>...</modules> -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/.git*</exclude>
+						</excludes>
+						<archive>
+							<!-- TODO: Austesten -->
+							<!-- <manifest> -->
+							<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
+							<!-- </manifest> -->
+							<manifestEntries>
+								<Build-Number>${buildNumber}</Build-Number>
+								<Build-Timestamp>${timestamp}</Build-Timestamp>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/.git*</exclude>
+						</excludes>
+						<archive>
+							<!-- TODO: Austesten -->
+							<!-- <manifest> -->
+							<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
+							<!-- </manifest> -->
+							<manifestEntries>
+								<Build-Number>${buildNumber}</Build-Number>
+								<Build-Timestamp>${timestamp}</Build-Timestamp>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
 
-	<!-- <dependencyManagement>...</dependencyManagement> -->
-	<!-- <dependencies>...</dependencies> -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>${maven-scm-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/.git*</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/.git*</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
 
-	<!-- <build> -->
-	<!-- <pluginManagement>...</pluginManagement> -->
-	<!-- <plugins>...</plugins> -->
-	<!-- </build> -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>buildnumber-maven-plugin</artifactId>
+					<version>${buildnumber-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.github</groupId>
+					<artifactId>site-maven-plugin</artifactId>
+					<version>${site-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>create-build-information</id>
+						<goals>
+							<goal>create</goal>
+						</goals>
+						<configuration>
+							<timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
-	<!-- <reporting>...</reporting> -->
-
-	<!-- <profiles>...</profiles> -->
+	<profiles>
+		<profile>
+			<id>it-dirs</id>
+			<activation>
+				<file>
+					<exists>src/it</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>add-it-source-dir</id>
+								<goals>
+									<goal>add-test-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/it/java</source>
+									</sources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>add-it-resource-dir</id>
+								<goals>
+									<goal>add-test-resource</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>src/it/resources</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- TODO: Austesten! -->
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-failsafe-plugin</artifactId> -->
+					<!-- <executions> -->
+					<!-- <execution> -->
+					<!-- <id>run-integration-tests</id> -->
+					<!-- <goals> -->
+					<!-- <goal>integration-test</goal> -->
+					<!-- <goal>verify</goal> -->
+					<!-- </goals> -->
+					<!-- </execution> -->
+					<!-- </executions> -->
+					<!-- </plugin> -->
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>source-and-javadoc</id>
+			<activation>
+				<property>
+					<name>building</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-sources-jar</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-javadoc-jar</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>release-validation</id>
+			<activation>
+				<property>
+					<name>releasing</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>enforce-release-requirements</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireReleaseDeps />
+										<dependencyConvergence />
+										<requireUpperBoundDeps />
+										<requirePluginVersions />
+										<reactorModuleConvergence />
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>site-deployment</id>
+			<activation>
+				<property>
+					<name>deployingSite</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<maven.site.deploy.skip>true</maven.site.deploy.skip>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.github</groupId>
+						<artifactId>site-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>deploy-site</id>
+								<goals>
+									<goal>site</goal>
+								</goals>
+								<phase>site-deploy</phase>
+								<configuration>
+									<oauth2Token>${env.GH_WORKFLOW_TOKEN}</oauth2Token>
+									<message>Deploying site for version ${project.version}.</message>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
