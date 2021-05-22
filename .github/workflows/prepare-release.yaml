@@ -41,5 +41,5 @@ jobs:
       -  run: .github/workflows/scripts/configure-git-user.sh
       -  run: .github/workflows/scripts/set-new-project-version.sh
          env:
-            NEW_PROJECT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.${parsedVersion.incrementalVersion}-SETME-SNAPSHOT
+            NEW_PROJECT_VERSION: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}-SETME-SNAPSHOT
             GIT_COMMIT_MESSAGE: Starting next development iteration.
