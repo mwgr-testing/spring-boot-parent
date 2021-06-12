@@ -100,10 +100,9 @@
 							<exclude>**/.git*</exclude>
 						</excludes>
 						<archive>
-							<!-- TODO: Austesten -->
-							<!-- <manifest> -->
-							<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
-							<!-- </manifest> -->
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
 							<manifestEntries>
 								<Build-Number>${buildNumber}</Build-Number>
 								<Build-Timestamp>${timestamp}</Build-Timestamp>
@@ -119,10 +118,9 @@
 							<exclude>**/.git*</exclude>
 						</excludes>
 						<archive>
-							<!-- TODO: Austesten -->
-							<!-- <manifest> -->
-							<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
-							<!-- </manifest> -->
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
 							<manifestEntries>
 								<Build-Number>${buildNumber}</Build-Number>
 								<Build-Timestamp>${timestamp}</Build-Timestamp>
@@ -231,20 +229,19 @@
 							</execution>
 						</executions>
 					</plugin>
-					<!-- TODO: Austesten! -->
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-failsafe-plugin</artifactId> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>run-integration-tests</id> -->
-					<!-- <goals> -->
-					<!-- <goal>integration-test</goal> -->
-					<!-- <goal>verify</goal> -->
-					<!-- </goals> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>run-integration-tests</id>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
