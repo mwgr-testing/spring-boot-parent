@@ -18,7 +18,7 @@
 	<name>MWGR Testing (GitHub) - Spring Boot Parent</name>
 	<description>A parent POM for all my Spring Boot projects in the testing area. It extends the spring-boot-starter-parent and mainly provides plugin management and some useful profiles.</description>
 	<inceptionYear>2021</inceptionYear>
-	<url>https://github.com/mwgr-testing/spring-boot-parent</url>
+	<url>https://github.com/mwgr-testing/gh-spring-boot-parent</url>
 
 	<properties>
 		<java.version>11</java.version>
@@ -46,18 +46,18 @@
 	</developers>
 
 	<scm>
-		<url>https://github.com/mwgr-testing/spring-boot-parent</url>
-		<connection>scm:git:https://github.com/mwgr-testing/spring-boot-parent.git</connection>
-		<developerConnection>scm:git:https://github.com/mwgr-testing/spring-boot-parent.git</developerConnection>
+		<url>https://github.com/mwgr-testing/gh-spring-boot-parent</url>
+		<connection>scm:git:https://github.com/mwgr-testing/gh-spring-boot-parent.git</connection>
+		<developerConnection>scm:git:https://github.com/mwgr-testing/gh-spring-boot-parent.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/mwgr-testing/spring-boot-parent/issues</url>
+		<url>https://github.com/mwgr-testing/gh-spring-boot-parent/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/mwgr-testing/spring-boot-parent/actions</url>
+		<url>https://github.com/mwgr-testing/gh-spring-boot-parent/actions</url>
 	</ciManagement>
 	<distributionManagement>
 		<snapshotRepository>
